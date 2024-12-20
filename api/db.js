@@ -1,10 +1,11 @@
-const jsonServer = require('json-server');
+const path = require("path");
+const jsonServer = require("json-server");
+
 const server = jsonServer.create();
-const router = jsonServer.router('db.json'); // Path to your JSON data file
+const router = jsonServer.router(path.join(__dirname, "../db.json")); // Adjust path as needed
 const middlewares = jsonServer.defaults();
 
 server.use(middlewares);
-server.use('/api', router); // Prefix all routes with /api
-server.listen(3000, () => {
-  console.log('JSON Server is running');
-});
+server.use(router);
+
+module.exports = server;
