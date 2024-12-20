@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class ContactsService {
 
-  private apiUrl = 'http://localhost:3000/contacts';
+  private apiUrl = 'https://phonebook-app-kaex.vercel.app/api/contacts';
 
   constructor(private http: HttpClient) {}
 
