@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class ContactsService {
 
-  private apiUrl = 'phonebook-app-peach.vercel.app/api/contacts';
+  private apiUrl = '/api/contacts';
 
   constructor(private http: HttpClient) {}
 
