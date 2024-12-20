@@ -172,8 +172,6 @@ export class ContactListComponent {
   }
 
   changeView(type: string){
-
-    console.log(type);
     if(type === 'list'){
     sessionStorage.setItem('displayMode','grid');
     this.displayMode = 'grid';

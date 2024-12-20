@@ -2,13 +2,14 @@
   "contacts": [
     {
       "id": "1",
-      "firstName": "John",
-      "lastName": "Doe",
+      "firstName": "A.",
+      "lastName": "Rabin",
       "email": "john.doe@example.com",
       "phoneNumber": "123-456-7890",
       "displayPhoto": "https://via.placeholder.com/150",
       "physicalAddress": "123 Elm Street, Springfield",
-      "groupName": "Friends"
+      "groupName": "Friends",
+      "photoUrl":"assets/images/dp-w.jpg"
     },
     {
       "id": "2",
