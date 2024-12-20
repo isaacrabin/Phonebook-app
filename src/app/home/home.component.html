@@ -1,0 +1,93 @@
+<section class="h-full w-full min-h-screen overflow-auto transition ease-in-out bg-home">
+  <div class="flex items-center w-full min-h-screen p-8 mx-auto">
+    <div class="flex flex-col lg:flex-row items-center justify-between w-full h-full">
+
+      <!-- Left section -->
+      <div class="home-left lg:w-[75%] w-full mb-8 lg:mb-0">
+        <div class="relative p-4">
+          <img
+            src="assets/images/logo_nobg.png"
+            width="150"
+            height="90"
+            alt="Logo"
+            class="w-full max-w-[150px]"
+          />
+        </div>
+
+        <div class="home-title mt-8 lg:mt-20">
+          <h5 class="gradient-text text-center lg:text-left">
+            Welcome to my Kurasa <br />
+            <span class="gradient-text">Phonebook App with Angular</span>
+          </h5>
+          <div>
+            <p class="welcome-desc text-center lg:text-left">
+              Welcome to my phonebook app developed using Angular and Tailwindcss <br />
+              and enjoy an array of features that will help improve your experience like:
+              <br />
+              <ngx-typed-js
+                [strings]="[
+                  'List of All Contacts',
+                  'View a single contact',
+                  'Edit and Update contact',
+                  'Delete a contact',
+                  'Search contacts',
+                  'Homepage Toggle'
+                ]"
+                [loop]="true"
+                [typeSpeed]="60"
+                [shuffle]="true"
+              >
+                <span
+                  class="home-text08 typing text-[#f7c152] font-black"
+                ></span>
+              </ngx-typed-js>
+            </p>
+          </div>
+
+          <div class="mt-4 md:w-[60%]  sm:w-full sm:mx-auto lg:ml-0 lg:w-[30%]">
+            <button
+            (click)="viewContacts()"
+              class="bg-[#f7c152] leading-8 text-white font-semibold py-2 px-4 rounded block w-full hover:bg-[#f1b32d] focus:outline-none focus:ring-2 focus:ring-[#f7c152] transition ease-in-out"
+            >
+              Let's Get Started
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right section -->
+      <div class="bg-[#f0f0f0] rounded steps-section lg:w-[25%] w-full mt-8 lg:mb-0 flex justify-center items-center">
+        <!-- Custom List -->
+        <div class="steps-section w-[21.5rem] min-h-[25rem] rounded p-4 mx-auto">
+          <h4 class="font-bold text-center">Core Features</h4>
+          <ul class="custom-list">
+            <li class="flex flex-col mb-4">
+              <span class="font-bold mb-1">List All Contacts(Alphabetical Order)</span>
+              <span>Display all contacts sorted alphabetically and provide a toglle option for users to switch between grid and list view</span>
+            </li>
+
+            <li class="flex flex-col mb-4">
+              <span class="font-bold mb-1">View a single Contact</span>
+              <span>Click on a contact and it should open a detailed view</span>
+            </li>
+
+            <li class="flex flex-col mb-4">
+              <span class="font-bold mb-1">Edit & Update Contact</span>
+              <span>Allow users to edit contact details and save changes</span>
+            </li>
+
+            <li class="flex flex-col mb-4">
+              <span class="font-bold mb-1">Delete a Contact</span>
+              <span>Allow users to delete a contact with a confirmation dialog</span>
+            </li>
+
+            <li class="flex flex-col mb-4">
+              <span class="font-bold mb-1">Search Contacts</span>
+              <span>Include search bar at the top of the contact list and filter the conatcts dynamically</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

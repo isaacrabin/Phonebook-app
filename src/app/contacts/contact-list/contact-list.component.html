@@ -1,0 +1,201 @@
+<section class="h-full w-full min-h-screen overflow-auto transition ease-in-out bg-home">
+  <div class="w-full min-h-screen p-8 mx-auto lg:w-[60%] bg-[#f0f0f0]">
+    <div class="flex flex-col lg:flex-col w-full mb-8 lg:mb-0">
+      <div class="mb-8 lg:mb-5">
+        <div>
+          <span
+            (click)="back()"
+            class="cursor-pointer flex items-center justify-center w-10 h-10 rounded-full hover:bg-[#a9a9a9] transition"
+          >
+            <ng-icon name="heroArrowSmallLeftSolid" class="font-bold text-2xl " />
+          </span>
+        </div>
+
+        <div class="flex justify-between">
+          <div>
+            <h3 class="text-[#444444] font-bold text-3xl"> My Contacts </h3>
+          </div>
+          <div>
+            <button  *ngIf="displayMode === 'list'"  (click)="changeView('list')" class="bg-gray-200 disabled:cursor-not-allowed leading-8 text-white font-semibold py-2 px-4 rounded  hover:bg-gray-400  focus:outline-none focus:ring-2 focus:ring-[#f7c152] transition ease-in-out">
+              <ng-icon name="heroListBullet" class="font-bold text-2xl text-gray-600"></ng-icon>
+            </button>
+
+            <button *ngIf="displayMode !== 'list'" (click)="changeView('grid')" class="bg-gray-200 disabled:cursor-not-allowed leading-8 text-white font-semibold py-2 px-4 rounded  hover:bg-gray-400  focus:outline-none focus:ring-2 focus:ring-[#f7c152] transition ease-in-out">
+              <ng-icon name="featherGrid" class="font-bold text-2xl text-gray-600"></ng-icon>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="py-6 w-full mx-auto">
+        <div class="relative">
+          <input
+            type="text"
+            placeholder="Search..."
+            [(ngModel)]="searchText"
+            class="w-full px-4 py-2 text-gray-700 border bg-gray-50 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white"
+          />
+          <span class="absolute right-3 top-2.5 h-5 w-5 text-gray-400">
+            <ng-icon name="featherSearch" class="font-bold text-xl" />
+          </span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-5" *ngIf="showBulkDelete">
+        <button (click)="bulkUpdateFrozen()" class="bg-tertiary-500 disabled:cursor-not-allowed leading-8 text-white font-semibold py-2 px-4 rounded  hover:bg-tertiary-700  focus:outline-none focus:ring-2 focus:ring-[#f7c152] transition ease-in-out">
+          <ng-icon name="heroTrash" class="font-bold text-xl text-[#fff]"></ng-icon>
+        </button>
+
+        Delete Selected Contact(s)
+      </div>
+
+      @if(displayMode === 'list'){
+        <ul role="list" class="divide-y divide-[#c0c0c0]">
+          <div *ngFor="let contact of contacts | contact:searchText" class="w-full mb-8 lg:mb-0">
+
+            <li class="flex justify-between gap-x-6 py-5 items-center">
+              <div class="flex items-center min-w-0 gap-x-4">
+                <!-- Checkbox for bulk selection -->
+                <input
+                  type="checkbox"
+                  class="rounded border-gray-300 text-[#f7c152] focus:ring-[#f7c152] cursor-pointer"
+                  [(ngModel)]="contact.isSelected"
+
+                  (change)="onCheckChange($event)"
+                />
+
+                <!-- Contact details -->
+                <div class="flex min-w-0 gap-x-4 cursor-pointer ml-2" (click)="viewMore(contact)">
+                  <img
+                    class="size-12 flex-none rounded-full bg-gray-50"
+                    [src]="contact.photoUrl || 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'"
+                    alt="{{ contact.firstName }} {{ contact.lastName }}"
+                  />
+                  <div class="min-w-0 flex-auto">
+                    <p class="text-sm/6 font-semibold text-[#444444]">{{ contact.firstName }} {{ contact.lastName }}</p>
+                    <p class="mt-1 truncate text-xs/5 text-[#808080]">{{ contact.email }}</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Options menu -->
+              <div class="shrink-0 sm:flex sm:flex-col flex items-center cursor-pointer justify-center px-4">
+                <div class="p-0">
+                  <div class="dropdown inline-block relative">
+                    <button
+                      class="text-sm/6 text-gray-900 flex items-center justify-center w-10 h-10 rounded-full hover:bg-[#a9a9a9] transition"
+                    >
+                      <ng-icon name="heroEllipsisVerticalSolid" class="font-bold text-xl"></ng-icon>
+                    </button>
+                    <ul class="dropdown-menu absolute hidden text-gray-700 pt-1 list-none min-w-[150px] z-10">
+                      <li>
+                        <a
+                          class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap"
+                          (click)="viewMore(contact)"
+                        >
+                          View
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap"
+                          (click)="editContact(contact)"
+                        >
+                          Edit
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          class="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap"
+                          (click)="showDeleteAlert(contact)"
+                        >
+                          Delete
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </li>
+        </div>
+
+        <p *ngIf="contacts.length === 0" class="text-gray-500">
+          No data found.
+        </p>
+
+        </ul>
+      }
+
+        @if(displayMode === 'grid'){
+          <ul role="list" class="divide-y divide-[#c0c0c0] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div *ngFor="let contact of contacts | contact:searchText" class="w-full mb-8 lg:mb-0">
+              <li class="flex flex-col md:flex-row justify-between gap-x-6 py-5 items-center bg-white rounded-lg shadow-md">
+                <div class="flex items-center min-w-0 gap-x-4 pl-2">
+                  <!-- Checkbox for bulk selection -->
+                  <input
+                    type="checkbox"
+                    class="rounded border-gray-300 text-[#f7c152] focus:ring-[#f7c152] cursor-pointer"
+                    [(ngModel)]="contact.isSelected"
+                    (change)="onCheckChange($event)"
+                  />
+
+                  <!-- Contact details -->
+                  <div class="flex items-center min-w-0 gap-x-4 cursor-pointer ml-2" (click)="viewMore(contact)">
+                    <img
+                      class="size-12 flex-none rounded-full bg-gray-50"
+                      [src]="contact.photoUrl || 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'"
+                      alt="{{ contact.firstName }} {{ contact.lastName }}"
+                    />
+                    <div class="min-w-0 flex-auto">
+                      <p class="text-sm/6 font-semibold text-[#444444]">{{ contact.firstName }} {{ (contact.lastName.length>4)? (contact.lastName | slice:0:4)+'..':(contact.lastName) }}</p>
+                      <p class="mt-1 truncate text-xs/5 text-[#808080]">{{ contact.email }}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Options menu -->
+                <div class="shrink-0 sm:flex sm:flex-col flex items-center cursor-pointer justify-center px-4">
+                  <div class="p-0">
+                    <div class="dropdown inline-block relative">
+                      <button
+                        class="text-sm/6 text-gray-900 flex items-center justify-center w-10 h-10 rounded-full hover:bg-[#a9a9a9] transition"
+                      >
+                        <ng-icon name="heroEllipsisVerticalSolid" class="font-bold text-xl"></ng-icon>
+                      </button>
+                      <ul class="dropdown-menu absolute hidden text-gray-700 pt-1 list-none min-w-[150px] z-10">
+                        <li>
+                          <a
+                            class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap"
+                            (click)="viewMore(contact)"
+                          >
+                            View
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap"
+                            (click)="editContact(contact)"
+                          >
+                            Edit
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            class="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap"
+                            (click)="showDeleteAlert(contact)"
+                          >
+                            Delete
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </div>
+          </ul>
+        }
+    </div>
+  </div>
+</section>

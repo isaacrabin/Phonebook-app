@@ -1,0 +1,137 @@
+<section class="h-full w-full min-h-screen overflow-auto transition ease-in-out bg-home">
+  <div class="w-full min-h-screen  mx-auto lg:w-[60%] bg-[#f0f0f0]">
+    <div class="flex flex-col lg:flex-col w-full mb-8 lg:mb-0 bg-gray-300">
+
+      <div class="mb-8 lg:mb-5 p-8">
+        <div>
+          <span
+            (click)="back()"
+            class="cursor-pointer flex items-center justify-center w-10 h-10 rounded-full hover:bg-[#a9a9a9] transition"
+          >
+            <ng-icon name="heroArrowSmallLeftSolid" class="font-bold text-2xl " />
+          </span>
+        </div>
+        <div class="flex justify-between">
+          <h3 class="text-[#444444] font-bold text-xl">Edit Contact</h3>
+        </div>
+      </div>
+
+      <!--Photo-->
+      <div class="flex justify-center items-center">
+        <div >
+          <div class="mt-5 flex flex-col items-center">
+            <img class="rounded rounded-full object-cover" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" height="100" width="100" alt="DP" />
+          </div>
+            <div class="mt-5 flex flex-col items-center">
+              <h5 class="font-semibold text-xl">{{selectedContact.firstName}} {{selectedContact.lastName}}</h5>
+              <h4>{{selectedContact.phoneNumber}}</h4>
+            </div>
+        </div>
+      </div>
+
+      <div class="flex flex-col lg:flex-col w-full lg:mb-0 rounded-t-xl bg-[#f0f0f0]">
+        <div class=" lg:mb-5 p-8">
+
+          <form [formGroup]="contactForm" class="py-6 w-full mx-auto">
+
+            <div class="flex gap-5 flex-row w-full">
+              <div class="relative mb-3 w-full">
+                <label for="firstName" class="text-[#444444]">First Name</label>
+                <input
+                  type="text"
+                  placeholder="Search..."
+                  formControlName="firstName"
+                  class="w-full px-4 py-2 text-gray-700 border bg-gray-50 rounded-lg focus:outline-none focus:ring-1 focus:ring-secondary-500 focus:bg-white"
+                />
+              </div>
+
+              <div class="relative mb-3 w-full">
+                <label for="firstName" class="text-[#444444]">Last Name</label>
+                <input
+                  type="text"
+                  placeholder="Search..."
+                  formControlName="lastName"
+                  class="w-full px-4 py-2 text-gray-700 border bg-gray-50 rounded-lg focus:outline-none focus:ring-1 focus:ring-secondary-500 focus:bg-white"
+                />
+              </div>
+            </div>
+
+
+            <div class="relative mb-3">
+              <label for="firstName" class="text-[#444444]">Phone Number</label>
+              <input
+                type="text"
+                maxlength="10"
+                maxlength="15"
+                placeholder="Search..."
+                formControlName="phoneNumber"
+                [ngClass]="{
+                  'border-[#d45b5b]': f['phoneNumber'].hasError('required') || f['phoneNumber'].hasError('pattern')
+                }"
+                class="w-full px-4 py-2 text-gray-700 border bg-gray-50 rounded-lg focus:outline-none focus:bg-white"
+              />
+              <small *ngIf="f['phoneNumber'].hasError('pattern')" class="text-[#d45b5b]">Provide a valid phone number</small>
+              <small *ngIf="f['phoneNumber'].hasError('required')" class="text-[#d45b5b]">Phone number is required</small>
+              <small *ngIf="f['phoneNumber'].hasError('minlength') && !f['phoneNumber'].hasError('pattern')" class="text-[#d45b5b]">Phone number must be atleast 10 digits</small>
+              <small *ngIf="f['phoneNumber'].hasError('maxlength') && !f['phoneNumber'].hasError('pattern')" class="text-[#d45b5b]">A valid Phone number must be atmost 10 digits</small>
+            </div>
+            <div class="relative mb-3">
+              <label for="firstName" class="text-[#444444]">Email</label>
+              <input
+                type="text"
+                placeholder="Search..."
+                formControlName="email"
+                [ngClass]="{
+                  'border-[#d45b5b]': f['email'].hasError('required') || f['email'].hasError('pattern')
+                }"
+                class="w-full px-4 py-2 text-gray-700 border bg-gray-50 rounded-lg focus:outline-none focus:bg-white"
+              />
+              <small *ngIf="f['email'].hasError('pattern')" class="text-[#d45b5b]">Provide a valid email</small>
+              <small *ngIf="f['email'].hasError('required')" class="text-[#d45b5b]">Email is required</small>
+            </div>
+
+            <div class="relative mb-3">
+              <label for="firstName" class="text-[#444444]">Physical Address</label>
+              <input
+                type="text"
+                placeholder="Search..."
+                formControlName="physicalAddress"
+                class="w-full px-4 py-2 text-gray-700 border bg-gray-50 rounded-lg focus:outline-none focus:ring-1 focus:ring-secondary-500 focus:bg-white"
+              />
+            </div>
+            <div class="relative mb-3">
+              <label for="firstName" class="text-[#444444]">Group</label>
+              <select
+                type="text"
+                placeholder="Search..."
+                formControlName="groupName"
+                class="w-full px-4 py-2 cursor-pointer text-gray-700 border bg-gray-50 rounded-lg focus:outline-none focus:ring-1 focus:ring-secondary-500 focus:bg-white"
+              >
+              <option value=""></option>
+              <option value="work">Work</option>
+              <option value="family">Family</option>
+              <option value="friend">Friend</option>
+              </select>
+            </div>
+
+            <div class="relative mt-2 mb-2">
+              <button
+              [disabled]="this.contactForm.invalid"
+              (click)="updateContact()"
+                class="bg-[#f7c152] disabled:cursor-not-allowed leading-8 text-white font-semibold py-2 px-4 rounded block w-full hover:bg-[#f1b32d] focus:outline-none focus:ring-2 focus:ring-[#f7c152] transition ease-in-out"
+              >
+              @if(loading){
+                <app-spinner></app-spinner>
+              }
+                Update Contact
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+
+  </div>
+</section>
