@@ -29,7 +29,26 @@ body{
   position: relative;
   h5{
     font-family: "Nunito", sans-serif !important;
-    font-size: 3.4rem;
+    font-weight: 900;
+    color: #fff;
+  }
+  .welcome-desc{
+    color: #fff;
+    font-size: 1.3rem !important;
+  }
+}
+
+.gradient-text-sm {
+  background-image: linear-gradient(90deg, #ffffff, #f7c152);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.home-title-sm{
+  position: relative;
+  h5{
+    font-family: "Nunito", sans-serif !important;
     font-weight: 900;
     color: #fff;
   }
@@ -71,5 +90,6 @@ body{
 
 .dropdown:hover .dropdown-menu {
   display: block;
+  margin-right: 1rem;
   list-style: none !important;
 }

@@ -3,9 +3,9 @@ import { ContactsService } from '../../../_services/contacts.service';
 import { CommonModule } from '@angular/common';
 import { Contact } from '../../../_models/contact.model';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { heroListBullet, heroTrash, heroUsers } from '@ng-icons/heroicons/outline';
+import { heroListBullet, heroTrash, heroUserGroup, heroUsers } from '@ng-icons/heroicons/outline';
 import { featherGrid, featherSearch } from '@ng-icons/feather-icons';
-import { heroEllipsisVerticalSolid,heroArrowSmallLeftSolid } from '@ng-icons/heroicons/solid';
+import { heroEllipsisVerticalSolid,heroArrowSmallLeftSolid, heroUserGroupSolid } from '@ng-icons/heroicons/solid';
 import { SelectDropDownModule } from 'ngx-select-dropdown'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -28,6 +28,7 @@ import { Observable } from 'rxjs';
   ],
   viewProviders: [provideIcons({ heroTrash,
     featherGrid,
+    heroUserGroupSolid,
     heroListBullet,heroUsers,heroEllipsisVerticalSolid,heroArrowSmallLeftSolid,featherSearch })],
   templateUrl: './contact-list.component.html',
   styleUrl: './contact-list.component.scss'
@@ -48,6 +49,8 @@ export class ContactListComponent {
 
   ngOnInit(): void {
     this.loadContacts();
+
+    this._service.createContact({ firstName: 'Alice', email: 'alice@example.com' }).subscribe();
   }
 
 

@@ -74,6 +74,7 @@ export class ContactsService {
   // Create a new contact
   createContact(contact: any): Observable<any> {
     this.contacts.push(contact);
+    console.log(contacts.length);
     return of(contact);
   }
 

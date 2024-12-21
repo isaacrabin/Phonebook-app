@@ -3,7 +3,7 @@ import { Contact } from "./contact.model";
 export const contacts: Contact[] = [
   {
     "id": "1",
-    "firstName": "A.",
+    "firstName": "Amorim",
     "lastName": "Rabin",
     "email": "john.doe@example.com",
     "phoneNumber": "123-456-7890",
