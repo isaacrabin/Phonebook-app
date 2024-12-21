@@ -2,10 +2,9 @@
   "name": "phone-book",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
-    "start": "concurrently \"npm run start:angular\" \"npm run start:json-server\"",
+    "start": "concurrently \"npm run start:angular\" \"npm run start:node\"",
     "start:angular": "ng serve --port 4200",
-    "start:json-server": "json-server --watch db.json --port 3000",
+    "start:node": "node api/server.js",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
