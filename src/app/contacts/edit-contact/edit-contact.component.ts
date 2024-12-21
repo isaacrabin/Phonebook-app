@@ -44,7 +44,7 @@ export class EditContactComponent  implements OnInit {
     private toastr: ToastrService,
     private route: ActivatedRoute
   ){
-    this.selectedContact = JSON.parse(sessionStorage.getItem('selectedContact') as string);
+    // this.selectedContact = JSON.parse(sessionStorage.getItem('selectedContact') as string);
 
     this.contactForm = this.fb.group({
       firstName: ["",[Validators.required]],
@@ -61,19 +61,20 @@ export class EditContactComponent  implements OnInit {
     })
   }
   ngOnInit(): void {
-    this.contactForm.patchValue({
-      firstName: this.selectedContact.firstName,
-      lastName: this.selectedContact.lastName,
-      phoneNumber: this.selectedContact.phoneNumber,
-      email: this.selectedContact.email,
-      physicalAddress: this.selectedContact.physicalAddress,
-      groupName: this.selectedContact.groupName
-    })
+
 
     this.route.params.subscribe((params) => {
       this.contactId = params['id'];
-      this._service.getContact(this.contactId).subscribe((res) => {
+      this._service.getContact(this.contactId).subscribe((res: Contact) => {
         this.selectedContact = res
+        this.contactForm.patchValue({
+          firstName: this.selectedContact.firstName,
+          lastName: this.selectedContact.lastName,
+          phoneNumber: this.selectedContact.phoneNumber,
+          email: this.selectedContact.email,
+          physicalAddress: this.selectedContact.physicalAddress,
+          groupName: this.selectedContact.groupName
+        })
       });
     })
   }
