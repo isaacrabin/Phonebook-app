@@ -1,12 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { Contact } from '../_models/contact.model';
+import { contacts } from '../_models/data';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class ContactsService {
 
+  contacts: Contact[] = contacts;
   // private apiUrl = '/api/contacts';
 
   // constructor(private http: HttpClient) {}
@@ -52,30 +56,7 @@ export class ContactsService {
   //   });
   // }
 
-  private contacts = [
-    {
-      "id": "1",
-      "firstName": "A.",
-      "lastName": "Rabin",
-      "email": "john.doe@example.com",
-      "phoneNumber": "123-456-7890",
-      "displayPhoto": "https://via.placeholder.com/150",
-      "physicalAddress": "123 Elm Street, Springfield",
-      "groupName": "Friends",
-      "photoUrl":"assets/images/dp-w.jpg"
-    },
-    {
-      "id": "2",
-      "firstName": "Jane",
-      "lastName": "Smith",
-      "email": "jane.smith@example.com",
-      "phoneNumber": "234-567-8901",
-      "displayPhoto": "https://via.placeholder.com/150",
-      "physicalAddress": "456 Oak Avenue, Metropolis",
-      "groupName": "Work"
-    },
-    // Add more mock data here...
-  ];
+
 
   constructor() { }
 
